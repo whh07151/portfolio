@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>우현호 · 백엔드 개발자 포트폴리오</title>
+<meta name="description" content="데이터 정합성과 무중단 운영에 강한 백엔드 개발자 우현호의 포트폴리오. LunchSync·Thesisfy·QueueCheck.">
+<meta property="og:title" content="우현호 · 백엔드 개발자 포트폴리오">
+<meta property="og:description" content="요구사항 설계부터 배포·운영까지 책임진 백엔드 개발자.">
+<meta property="og:type" content="website">
+<style>*{margin:0;padding:0;box-sizing:border-box}</style>
+</head>
+<body>
+<style>
+  :root{
+    --bg:#FAFBFC; --surface:#FFFFFF; --surface-2:#F1F5F7;
+    --ink:#0F1620; --muted:#54626E; --faint:#8595A2; --line:#E4EAEF;
+    --accent:#0C7C86; --accent-2:#0A626B; --good:#1C8C67;
+    --shadow:0 1px 2px rgba(16,30,45,.04),0 8px 30px rgba(16,30,45,.06);
+    --sans:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Malgun Gothic",system-ui,sans-serif;
+    --mono:"SF Mono","JetBrains Mono","Cascadia Code",ui-monospace,Consolas,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --bg:#090C10; --surface:#11161C; --surface-2:#161E26;
+      --ink:#E7EDF2; --muted:#9CAAB6; --faint:#63727F; --line:#1E2831;
+      --accent:#37C6BD; --accent-2:#4FD6CE; --good:#40C08E;
+      --shadow:0 1px 2px rgba(0,0,0,.3),0 12px 40px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="light"]{
+    --bg:#FAFBFC; --surface:#FFFFFF; --surface-2:#F1F5F7;
+    --ink:#0F1620; --muted:#54626E; --faint:#8595A2; --line:#E4EAEF;
+    --accent:#0C7C86; --accent-2:#0A626B; --good:#1C8C67;
+    --shadow:0 1px 2px rgba(16,30,45,.04),0 8px 30px rgba(16,30,45,.06);
+  }
+  :root[data-theme="dark"]{
+    --bg:#090C10; --surface:#11161C; --surface-2:#161E26;
+    --ink:#E7EDF2; --muted:#9CAAB6; --faint:#63727F; --line:#1E2831;
+    --accent:#37C6BD; --accent-2:#4FD6CE; --good:#40C08E;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 12px 40px rgba(0,0,0,.35);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+    line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+    transition:background .3s ease,color .3s ease}
+  ::selection{background:color-mix(in srgb,var(--accent) 26%,transparent)}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 clamp(20px,5vw,44px)}
+
+  /* eyebrow / mono labels */
+  .ey{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--accent-2);display:inline-flex;align-items:center;gap:9px}
+  .ey::before{content:"";width:7px;height:7px;background:var(--accent);border-radius:2px;
+    box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 18%,transparent)}
+  @media (prefers-color-scheme:dark){.ey{color:var(--accent-2)}}
+
+  /* topbar */
+  header.bar{position:sticky;top:0;z-index:50;backdrop-filter:saturate(150%) blur(12px);
+    background:color-mix(in srgb,var(--bg) 82%,transparent);border-bottom:1px solid var(--line)}
+  .bar .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+  .brand{font-weight:800;letter-spacing:-.01em;font-size:16px;display:flex;align-items:center;gap:10px}
+  .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--accent);
+    box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 20%,transparent)}
+  nav.links{display:flex;gap:26px;align-items:center}
+  nav.links a{font-size:13.5px;color:var(--muted);font-weight:500;transition:color .2s}
+  nav.links a:hover{color:var(--ink)}
+  .tgl{border:1px solid var(--line);background:var(--surface);color:var(--muted);
+    width:34px;height:34px;border-radius:9px;cursor:pointer;display:grid;place-items:center;
+    transition:.2s;font-size:15px}
+  .tgl:hover{color:var(--ink);border-color:var(--accent)}
+  @media (max-width:640px){nav.links a:not(.only-wide){display:none}}
+
+  section{padding:clamp(56px,9vw,104px) 0;border-bottom:1px solid var(--line)}
+  .shead{display:flex;align-items:baseline;justify-content:space-between;gap:20px;
+    margin-bottom:40px;flex-wrap:wrap}
+  .shead h2{font-size:clamp(24px,3.4vw,34px);font-weight:800;letter-spacing:-.02em;margin:12px 0 0;
+    text-wrap:balance}
+  .shead .idx{font-family:var(--mono);font-size:12.5px;color:var(--faint);letter-spacing:.05em}
+
+  /* hero */
+  .hero{padding-top:clamp(48px,7vw,86px)}
+  .hero h1{font-size:clamp(38px,7vw,72px);font-weight:800;letter-spacing:-.035em;line-height:1.02;
+    margin:20px 0 0;text-wrap:balance}
+  .hero h1 .accent{color:var(--accent)}
+  .lede{font-size:clamp(16px,2.1vw,20px);color:var(--muted);max-width:60ch;margin:22px 0 0;
+    font-weight:450}
+  .lede b{color:var(--ink);font-weight:650}
+  .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:34px}
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:11px 18px;border-radius:11px;
+    font-size:14px;font-weight:600;border:1px solid var(--line);background:var(--surface);
+    transition:.2s;font-family:var(--sans)}
+  .btn:hover{transform:translateY(-1px);border-color:var(--accent);box-shadow:var(--shadow)}
+  .btn.pri{background:var(--accent);color:#fff;border-color:var(--accent)}
+  :root[data-theme="dark"] .btn.pri{color:#04211f}
+  @media (prefers-color-scheme:dark){.btn.pri{color:#04211f}}
+  .btn.pri:hover{background:var(--accent-2);border-color:var(--accent-2)}
+  .btn .m{font-family:var(--mono);opacity:.7;font-size:12px}
+
+  /* telemetry metrics */
+  .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:52px}
+  @media (max-width:720px){.metrics{grid-template-columns:repeat(2,1fr)}}
+  .metric{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px 18px;
+    position:relative;overflow:hidden;box-shadow:var(--shadow)}
+  .metric::after{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent);
+    opacity:.85}
+  .metric .num{font-family:var(--mono);font-size:clamp(30px,4.6vw,42px);font-weight:600;
+    letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1}
+  .metric .cap{margin-top:9px;font-size:12.5px;color:var(--muted);letter-spacing:.01em}
+  .metric .u{color:var(--accent);font-size:.55em;margin-left:2px}
+
+  /* project catalog */
+  .proj{display:grid;grid-template-columns:1fr;gap:18px}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:18px;
+    padding:clamp(22px,3vw,34px);box-shadow:var(--shadow);transition:.25s;position:relative}
+  .card:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--accent) 40%,var(--line))}
+  .card .top{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;flex-wrap:wrap}
+  .card h3{font-size:clamp(21px,2.6vw,27px);font-weight:800;letter-spacing:-.02em;margin:8px 0 0}
+  .card .role{font-family:var(--mono);font-size:12px;color:var(--faint);letter-spacing:.04em}
+  .award{font-size:12px;font-weight:650;color:var(--good);border:1px solid color-mix(in srgb,var(--good) 40%,var(--line));
+    background:color-mix(in srgb,var(--good) 9%,transparent);padding:5px 11px;border-radius:999px;white-space:nowrap}
+  .meta{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:16px;font-size:13px;color:var(--muted);
+    font-family:var(--mono)}
+  .meta span b{color:var(--ink);font-weight:600}
+  .desc{margin:18px 0 0;color:var(--muted);max-width:70ch}
+  .bul{list-style:none;padding:0;margin:16px 0 0;display:grid;gap:9px}
+  .bul li{position:relative;padding-left:22px;font-size:14.5px;color:var(--ink)}
+  .bul li::before{content:"";position:absolute;left:2px;top:9px;width:8px;height:8px;border-radius:2px;
+    border:2px solid var(--accent);transform:rotate(45deg)}
+  .bul li em{color:var(--muted);font-style:normal}
+  .tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:20px}
+  .tag{font-family:var(--mono);font-size:11.5px;color:var(--accent-2);
+    background:color-mix(in srgb,var(--accent) 8%,transparent);
+    border:1px solid color-mix(in srgb,var(--accent) 22%,var(--line));padding:4px 10px;border-radius:7px}
+  .pmetrics{display:flex;flex-wrap:wrap;gap:22px;margin-top:22px;padding-top:20px;border-top:1px dashed var(--line)}
+  .pm .n{font-family:var(--mono);font-size:22px;font-weight:600;font-variant-numeric:tabular-nums}
+  .pm .l{font-size:11.5px;color:var(--faint);letter-spacing:.03em}
+  .pm .n .u{color:var(--accent);font-size:.6em}
+
+  /* skills */
+  .skgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
+  .sk{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px;box-shadow:var(--shadow)}
+  .sk h4{margin:0 0 14px;font-size:13px;font-family:var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--accent-2)}
+  .sk ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:7px}
+  .sk li{font-size:13px;color:var(--ink);background:var(--surface-2);border:1px solid var(--line);
+    padding:5px 11px;border-radius:8px}
+
+  /* fit table */
+  .fit{width:100%;border-collapse:collapse;font-size:14.5px;overflow:hidden;border-radius:14px}
+  .fit-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow)}
+  .fit th,.fit td{text-align:left;padding:15px 20px;border-bottom:1px solid var(--line);vertical-align:top}
+  .fit thead th{background:var(--surface-2);font-family:var(--mono);font-size:12px;letter-spacing:.05em;
+    text-transform:uppercase;color:var(--muted);font-weight:600}
+  .fit tbody tr:last-child td{border-bottom:none}
+  .fit td:first-child{color:var(--muted);width:42%}
+  .fit td:last-child{color:var(--ink);font-weight:500}
+  .fit tbody tr{background:var(--surface)}
+
+  /* awards + contact */
+  .awards{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media (max-width:640px){.awards{grid-template-columns:1fr}}
+  .aw{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px;box-shadow:var(--shadow)}
+  .aw .t{font-weight:750;font-size:16px}
+  .aw .o{color:var(--muted);font-size:13.5px;margin-top:5px}
+  .aw .d{font-family:var(--mono);font-size:12px;color:var(--accent-2);margin-top:12px}
+
+  footer{padding:clamp(56px,9vw,90px) 0}
+  .foot{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:flex-end}
+  .foot h2{font-size:clamp(26px,4vw,40px);font-weight:800;letter-spacing:-.02em;margin:14px 0 0;text-wrap:balance}
+  .contacts{display:flex;flex-direction:column;gap:10px;font-family:var(--mono);font-size:14px}
+  .contacts a,.contacts span{color:var(--muted);display:flex;gap:10px;align-items:center;transition:.2s}
+  .contacts a:hover{color:var(--accent)}
+  .contacts .k{color:var(--faint);width:64px;display:inline-block}
+  .copy{margin-top:44px;font-size:12px;color:var(--faint);font-family:var(--mono)}
+
+  .reveal{opacity:0;transform:translateY(16px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}
+    .card:hover,.btn:hover,.metric{transform:none}}
+</style>
+
+<header class="bar">
+  <div class="wrap">
+    <a class="brand" href="#top"><span class="dot"></span>우현호<span style="color:var(--faint);font-weight:500;font-family:var(--mono);font-size:12px">/ backend</span></a>
+    <nav class="links">
+      <a href="#work">프로젝트</a>
+      <a href="#skills">역량</a>
+      <a href="#fit">직무 연결</a>
+      <a href="#contact" class="only-wide">연락</a>
+      <button class="tgl" id="tgl" aria-label="테마 전환">◐</button>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <span class="ey">Backend Engineer · Data Integrity &amp; Uptime</span>
+      <h1>만드는 것보다<br><span class="accent">멈추지 않게</span> 하는 데 강합니다.</h1>
+      <p class="lede">요구사항에서 출발해 시스템을 <b>설계</b>하고, 데이터 계층까지 파고들어 <b>정합성</b>을 지키고,
+        배포 후에도 <b>멈추지 않게 운영</b>하는 백엔드 개발자입니다. 4인 팀에서 팀장 겸 백엔드 전담(PL)으로
+        설계부터 배포·운영까지 끝까지 책임진 경험이 있습니다.</p>
+      <div class="cta">
+        <a class="btn pri" href="#work">프로젝트 보기 <span class="m">↓</span></a>
+        <a class="btn" href="https://github.com/whh07151" target="_blank" rel="noopener">GitHub <span class="m">↗</span></a>
+        <a class="btn" href="mailto:whh0715@naver.com">이메일 <span class="m">@</span></a>
+      </div>
+      <div class="metrics">
+        <div class="metric reveal"><div class="num"><span data-count="18">0</span></div><div class="cap">백엔드 도메인 · 단독 구현</div></div>
+        <div class="metric reveal"><div class="num"><span data-count="121">0</span></div><div class="cap">커밋 · 팀 내 백엔드 최다</div></div>
+        <div class="metric reveal"><div class="num"><span data-count="44">0</span></div><div class="cap">DB 마이그레이션 관리</div></div>
+        <div class="metric reveal"><div class="num"><span data-count="0">0</span></div><div class="cap">시연 중 오주문 건수</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="work">
+    <div class="wrap">
+      <div class="shead">
+        <div><span class="ey">Selected Work</span><h2>프로젝트</h2></div>
+        <span class="idx">03 projects · 2024–2026</span>
+      </div>
+      <div class="proj">
+
+        <article class="card reveal">
+          <div class="top">
+            <div>
+              <div class="role">01 — 팀장 · 백엔드 전담(PL) · 4인</div>
+              <h3>LunchSync</h3>
+            </div>
+            <span class="award">🏆 캡스톤디자인 우수상</span>
+          </div>
+          <div class="meta">
+            <span><b>2026.04–06</b></span><span>NestJS · PostgreSQL</span><span>기여도 <b>40%</b></span>
+          </div>
+          <p class="desc">손님 앱·사장 앱·매장 POS 세 클라이언트가 <b>하나의 주문을 동시에 다루는</b> 그룹 점심 조율·주문 플랫폼.
+            추천→투표→주문→결제→접수 흐름을 요구사항으로 정리하고 ERD·API·상태 전이를 설계했다.</p>
+          <ul class="bul">
+            <li>인증·투표·주문·결제·추천 등 <em>18개 도메인을 단독 구현</em> — 정합성 통제를 백엔드 한 곳으로 모음</li>
+            <li>주문 생성 3작업을 <em>트랜잭션</em>으로 묶어 부분 반영 차단, 주문 상태는 정해진 순서로만 전이</li>
+            <li>없는 컬럼 조회 시 무오류 빈 응답 문제 → 핵심 로직을 <em>PostgreSQL 저장 프로시저</em>로도 작성해 데이터 계층 정합성 재확보</li>
+            <li>시연 직전 네트워크 단절 장애 → 근본 원인 분석 후 <em>점증 백오프 재시도</em>와 회복 불가 오류 즉시 분류로 계층 재설계</li>
+          </ul>
+          <div class="tags">
+            <span class="tag">NestJS</span><span class="tag">TypeScript</span><span class="tag">PostgreSQL / PL·pgSQL</span>
+            <span class="tag">AWS EC2</span><span class="tag">Toss Payments</span><span class="tag">FCM</span><span class="tag">Gemini API</span><span class="tag">JWT</span>
+          </div>
+          <div class="pmetrics">
+            <div class="pm"><div class="n">18</div><div class="l">도메인</div></div>
+            <div class="pm"><div class="n">121</div><div class="l">커밋</div></div>
+            <div class="pm"><div class="n">44</div><div class="l">마이그레이션</div></div>
+            <div class="pm"><div class="n">7<span class="u">회차</span></div><div class="l">회귀 점검</div></div>
+            <div class="pm"><div class="n">0</div><div class="l">오주문</div></div>
+          </div>
+        </article>
+
+        <article class="card reveal">
+          <div class="top">
+            <div>
+              <div class="role">02 — 데이터 관리 · API 설계 · 5인</div>
+              <h3>Thesisfy</h3>
+            </div>
+            <span class="award">🏆 SW중심대학 페스티벌 우수상</span>
+          </div>
+          <div class="meta">
+            <span><b>2024.09–12</b></span><span>iOS · REST API 설계</span><span>기여도 <b>20%</b></span>
+          </div>
+          <p class="desc">국내 주요 대학(서울대·고려대·연세대·KAIST 등)의 논문을 한 곳에서 통합 검색·북마크·관리하는 iOS 앱.
+            나는 <b>데이터 관리와 API 설계</b>를 맡았다.</p>
+          <ul class="bul">
+            <li>검색용 학술 데이터 구조와 전공·학교·키워드 <em>필터 파라미터 규약</em> 정의</li>
+            <li>앱–서버 연동 <em>REST API 명세</em> 설계, 검색 정확도를 위한 경계값·예외 질의 점검</li>
+          </ul>
+          <div class="tags">
+            <span class="tag">REST API 설계</span><span class="tag">데이터 모델링</span><span class="tag">iOS / Swift</span><span class="tag">Alamofire</span>
+          </div>
+        </article>
+
+        <article class="card reveal">
+          <div class="top">
+            <div>
+              <div class="role">03 — 프론트엔드(Android) · 4인</div>
+              <h3>QueueCheck</h3>
+            </div>
+          </div>
+          <div class="meta">
+            <span><b>2025.07–09</b></span><span>Kotlin · Android</span><span>기여도 <b>25%</b></span>
+          </div>
+          <p class="desc">스터디 공간의 <b>실시간 혼잡도</b>를 확인하고 개인 <b>공부 기록</b>을 관리하는 Android 앱.
+            Kotlin으로 클라이언트 전반을 구현하고 서버 API와 연동했다.</p>
+          <ul class="bul">
+            <li>Firebase Auth 기반 로그인·회원가입 및 <em>계정 관리</em>(이메일·비밀번호 변경, 탈퇴)</li>
+            <li>실시간 혼잡도 조회, 장소 선택·상세, <em>캘린더 기반 공부 기록</em>(일자별 누적 시간 집계)</li>
+            <li><em>Retrofit2</em>로 서버 API 연동</li>
+          </ul>
+          <div class="tags">
+            <span class="tag">Kotlin</span><span class="tag">Android</span><span class="tag">Firebase Auth</span><span class="tag">Retrofit2</span>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="wrap">
+      <div class="shead">
+        <div><span class="ey">Capabilities</span><h2>기술 역량</h2></div>
+        <span class="idx">stack &amp; strengths</span>
+      </div>
+      <div class="skgrid">
+        <div class="sk reveal"><h4>Backend</h4><ul>
+          <li>NestJS</li><li>Node.js</li><li>RESTful API</li><li>JWT</li><li>트랜잭션 설계</li><li>상태 전이 모델링</li></ul></div>
+        <div class="sk reveal"><h4>Database</h4><ul>
+          <li>PostgreSQL</li><li>PL/pgSQL 저장 프로시저</li><li>마이그레이션</li><li>MySQL</li><li>데이터 정합성</li></ul></div>
+        <div class="sk reveal"><h4>Infra &amp; Integration</h4><ul>
+          <li>AWS EC2</li><li>무중단 운영</li><li>장애 대응·재시도</li><li>Toss Payments</li><li>FCM</li><li>Gemini API</li></ul></div>
+        <div class="sk reveal"><h4>Language</h4><ul>
+          <li>TypeScript</li><li>JavaScript</li><li>SQL</li><li>Kotlin</li><li>Java (기초)</li><li>Dart</li></ul></div>
+        <div class="sk reveal"><h4>Mobile</h4><ul>
+          <li>Android / Kotlin</li><li>Flutter / Dart</li><li>iOS / Swift (경험)</li></ul></div>
+        <div class="sk reveal"><h4>Learning Now</h4><ul>
+          <li>Java</li><li>Spring</li><li>MES 도메인</li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="fit">
+    <div class="wrap">
+      <div class="shead">
+        <div><span class="ey">Role Fit · 현대오토에버 IT개발</span><h2>직무와의 접점</h2></div>
+        <span class="idx">MES 운영 / Platform</span>
+      </div>
+      <div class="fit-wrap reveal">
+        <table class="fit">
+          <thead><tr><th>직무가 요구하는 일</th><th>제가 해 본 일</th></tr></thead>
+          <tbody>
+            <tr><td>비즈니스 요구사항 분석 및 IT 시스템 설계</td><td>서비스 흐름 정리 → ERD·API·상태전이 설계</td></tr>
+            <tr><td>시스템 구축 참여 (PM/PL)</td><td>4인 팀 팀장·백엔드 전담으로 설계~배포 주도</td></tr>
+            <tr><td>여러 DB를 다루는 백엔드 API 서버 개발</td><td>18개 도메인 API + PostgreSQL 저장 프로시저 직접 작성</td></tr>
+            <tr><td>데이터 정합성 확보 (MES 핵심)</td><td>트랜잭션·상태전이·저장 프로시저·마이그레이션 44종 관리</td></tr>
+            <tr><td>시스템 운영·장애 대응</td><td>EC2 무중단 운영, 근본원인 기반 재시도 복구, 회귀 점검 7회차</td></tr>
+            <tr><td>요구사항 이해·협업·커뮤니케이션</td><td>세 단말 API 규약 선합의로 병렬 협업 유도</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="color:var(--muted);font-size:14px;margin-top:20px;max-width:75ch">
+        MES·대규모 DB 운영 플랫폼을 직접 다뤄 본 적은 아직 없습니다. 다만 요구사항에서 출발해 시스템을 설계하고,
+        DB까지 파고들어 무결성을 지키고, 멈추지 않게 운영해 본 경험은 그대로 이어집니다.
+        주력 스택인 Java/Spring은 기초 위에 실습으로 빠르게 끌어올리는 중입니다.</p>
+    </div>
+  </section>
+
+  <section id="awards">
+    <div class="wrap">
+      <div class="shead">
+        <div><span class="ey">Recognition</span><h2>수상</h2></div>
+      </div>
+      <div class="awards">
+        <div class="aw reveal">
+          <div class="t">캡스톤디자인 우수상</div>
+          <div class="o">한성대학교 · LunchSync</div>
+          <div class="d">2026.06</div>
+        </div>
+        <div class="aw reveal">
+          <div class="t">SW중심대학 페스티벌 캡스톤 전시회 우수상</div>
+          <div class="o">한성대학교 SW중심대학사업단 · Thesisfy</div>
+          <div class="d">2024.12</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="wrap">
+      <div class="foot">
+        <div>
+          <span class="ey">Get in touch</span>
+          <h2>함께 멈추지 않는<br>시스템을 만들겠습니다.</h2>
+        </div>
+        <div class="contacts">
+          <a href="mailto:whh0715@naver.com"><span class="k">EMAIL</span> whh0715@naver.com</a>
+          <a href="https://github.com/whh07151" target="_blank" rel="noopener"><span class="k">GITHUB</span> github.com/whh07151</a>
+          <span><span class="k">PHONE</span> 010-9715-6121</span>
+        </div>
+      </div>
+      <div class="copy">© 2026 우현호 · Backend Engineer — 한성대학교 컴퓨터공학부</div>
+    </div>
+  </footer>
+</main>
+
+<script>
+  (function(){
+    var root=document.documentElement, tgl=document.getElementById('tgl');
+    function set(t){root.setAttribute('data-theme',t);try{localStorage.setItem('pf-theme',t)}catch(e){}}
+    try{var s=localStorage.getItem('pf-theme');if(s)set(s)}catch(e){}
+    tgl.addEventListener('click',function(){
+      var cur=root.getAttribute('data-theme');
+      if(!cur)cur=matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';
+      set(cur==='dark'?'light':'dark');
+    });
+
+    var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(en){if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}});
+    },{threshold:.16});
+    document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+
+    function countUp(el){
+      var t=parseInt(el.getAttribute('data-count'),10),d=1100,st=null;
+      if(reduce||t===0){el.textContent=t;return;}
+      function step(ts){if(!st)st=ts;var p=Math.min((ts-st)/d,1);
+        el.textContent=Math.round((1-Math.pow(1-p,3))*t);if(p<1)requestAnimationFrame(step);}
+      requestAnimationFrame(step);
+    }
+    var cio=new IntersectionObserver(function(es){
+      es.forEach(function(en){if(en.isIntersecting){countUp(en.target);cio.unobserve(en.target);}});
+    },{threshold:.6});
+    document.querySelectorAll('[data-count]').forEach(function(el){cio.observe(el);});
+  })();
+</script>
+</body>
+</html>
