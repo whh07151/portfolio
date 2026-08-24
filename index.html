@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>우현호 · 백엔드 개발자 포트폴리오</title>
 <meta name="description" content="데이터 정합성과 무중단 운영에 강한 백엔드 개발자 우현호의 포트폴리오. LunchSync·Thesisfy·QueueCheck.">
+<script>if("IntersectionObserver" in window)document.documentElement.classList.add("js")</script>
 <meta property="og:title" content="우현호 · 백엔드 개발자 포트폴리오">
 <meta property="og:description" content="요구사항 설계부터 배포·운영까지 책임진 백엔드 개발자.">
 <meta property="og:type" content="website">
@@ -173,8 +174,9 @@
   .contacts .k{color:var(--faint);width:64px;display:inline-block}
   .copy{margin-top:44px;font-size:12px;color:var(--faint);font-family:var(--mono)}
 
-  .reveal{opacity:0;transform:translateY(16px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
-  .reveal.in{opacity:1;transform:none}
+  .reveal{opacity:1;transform:none}
+  .js .reveal{opacity:0;transform:translateY(16px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+  .js .reveal.in{opacity:1;transform:none}
   @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}
     .card:hover,.btn:hover,.metric{transform:none}}
 </style>
